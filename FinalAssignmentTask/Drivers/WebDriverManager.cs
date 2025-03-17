@@ -31,4 +31,3 @@ public class EdgeDriverFactory : IWebDriverFactory
         return new EdgeDriver();
     }
 }
-

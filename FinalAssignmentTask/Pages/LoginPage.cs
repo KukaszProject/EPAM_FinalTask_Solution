@@ -1,5 +1,4 @@
-﻿using log4net.Config;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 public class LoginPage
 {
@@ -27,6 +26,7 @@ public class LoginPage
             UsernameField.SendKeys(Keys.Backspace);
         }
     }
+
     public void ClearPassword()
     {
         int passwordLength = PasswordField.GetAttribute("value").Length;
@@ -35,7 +35,7 @@ public class LoginPage
             PasswordField.SendKeys(Keys.Backspace);
         }
     }
+
     public void ClickLogin() => LoginButton.Click();
     public string GetErrorMessage() => ErrorMessage.Text;
 }
-

@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using System;
 
 public sealed class WebDriverManager
 {
@@ -31,10 +30,11 @@ public sealed class WebDriverManager
                     default:
                         throw new ArgumentException("Unsupported browser!");
                 }
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
                 driver.Manage().Window.Maximize();
             }
         }
+
         return driver;
     }
 

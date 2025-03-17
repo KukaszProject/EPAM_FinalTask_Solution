@@ -1,6 +1,5 @@
 using OpenQA.Selenium;
 using FluentAssertions;
-using FinalAssignmentTask.Utilities;
 
 public class SauceDemoLoginTests
 {
@@ -15,11 +14,9 @@ public class SauceDemoLoginTests
         driver = WebDriverManager.GetDriver(browser);
         driver.Navigate().GoToUrl("https://www.saucedemo.com/");
         var loginPage = new LoginPage(driver);
-        LoggerHelper.StartTestCase("UC1_TestLoginWithEmptyCredentials");
 
         loginPage.EnterUsername(testUsername);
         loginPage.EnterPassword(testPassword);
-
         loginPage.ClearUsername(); // Clear username
         loginPage.ClearPassword(); // Clear password
         loginPage.ClickLogin();
@@ -42,9 +39,7 @@ public class SauceDemoLoginTests
 
         loginPage.EnterUsername(testUsername);
         loginPage.EnterPassword(testPassword);
-        
         loginPage.ClearPassword(); // Clear password
-
         loginPage.ClickLogin();
 
         // Verify error message
