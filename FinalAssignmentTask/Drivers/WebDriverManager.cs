@@ -14,26 +14,23 @@ public sealed class WebDriverManager
     {
         if (driver == null)
         {
-            lock (padlock)
+            switch (browser.ToLower())
             {
-                switch (browser.ToLower())
-                {
-                    case "chrome":
-                        driver = new ChromeDriver();
-                        break;
-                    case "edge":
-                        driver = new EdgeDriver();
-                        break;
-                    case "firefox":
-                        driver = new FirefoxDriver();
-                        break;
-                    default:
-                        throw new ArgumentException("Unsupported browser!");
-                }
+                case "chrome":
+                    driver = new ChromeDriver();
+                    break;
+                case "edge":
+                    driver = new EdgeDriver();
+                    break;
+                case "firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                default:
+                    throw new ArgumentException("Unsupported browser!");
+            }
 
                 driver.Manage().Window.Maximize();
             }
-        }
 
         return driver;
     }
