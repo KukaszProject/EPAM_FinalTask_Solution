@@ -3,8 +3,8 @@ using FluentAssertions;
 
 public class SauceDemoLoginTests
 {
-
     private IWebDriver? driver;
+
     [Theory]
     [InlineData("chrome", "test", "password")]
     [InlineData("firefox", "test", "password")]
@@ -17,11 +17,10 @@ public class SauceDemoLoginTests
 
         loginPage.EnterUsername(testUsername);
         loginPage.EnterPassword(testPassword);
-        loginPage.ClearUsername(); // Clear username
-        loginPage.ClearPassword(); // Clear password
+        loginPage.ClearUsername();
+        loginPage.ClearPassword();
         loginPage.ClickLogin();
 
-        // Verify error message
         loginPage.GetErrorMessage().Should().Contain("Username is required");
 
         WebDriverManager.QuitDriver();
@@ -39,10 +38,9 @@ public class SauceDemoLoginTests
 
         loginPage.EnterUsername(testUsername);
         loginPage.EnterPassword(testPassword);
-        loginPage.ClearPassword(); // Clear password
+        loginPage.ClearPassword();
         loginPage.ClickLogin();
 
-        // Verify error message
         loginPage.GetErrorMessage().Should().Contain("Password is required");
 
         WebDriverManager.QuitDriver();
@@ -62,7 +60,6 @@ public class SauceDemoLoginTests
         loginPage.EnterPassword(password);
         loginPage.ClickLogin();
 
-        // Validate Swag Labs title
         driver.Title.Should().Be("Swag Labs");
 
         WebDriverManager.QuitDriver();

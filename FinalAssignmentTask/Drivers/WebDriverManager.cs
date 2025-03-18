@@ -3,31 +3,47 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 
-public interface IWebDriverFactory
+public sealed class WebDriverManager
 {
-    IWebDriver CreateDriver();
-}
+    private static IWebDriver? driver;
+    private static readonly object padlock = new object();
 
-public class ChromeDriverFactory : IWebDriverFactory
-{
-    public IWebDriver CreateDriver()
+    private WebDriverManager() { }
+
+    public static IWebDriver GetDriver(string browser)
     {
-        return new ChromeDriver();
+        if (driver == null)
+        {
+            lock (padlock)
+            {
+                switch (browser.ToLower())
+                {
+                    case "chrome":
+                        driver = new ChromeDriver();
+                        break;
+                    case "edge":
+                        driver = new EdgeDriver();
+                        break;
+                    case "firefox":
+                        driver = new FirefoxDriver();
+                        break;
+                    default:
+                        throw new ArgumentException("Unsupported browser!");
+                }
+
+                driver.Manage().Window.Maximize();
+            }
+        }
+
+        return driver;
     }
-}
 
-public class FirefoxDriverFactory : IWebDriverFactory
-{
-    public IWebDriver CreateDriver()
+    public static void QuitDriver()
     {
-        return new FirefoxDriver();
-    }
-}
-
-public class EdgeDriverFactory : IWebDriverFactory
-{
-    public IWebDriver CreateDriver()
-    {
-        return new EdgeDriver();
+        if (driver != null)
+        {
+            driver.Quit();
+            driver = null;
+        }
     }
 }
